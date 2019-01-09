@@ -5,34 +5,34 @@ class Snake:
     def __init__(self, x, y):
         self.width = 10
         self.height = 10
-        self.snaketile = Tile(x,y)
+        self.tile = Tile(x,y)
         self.direction = 2
 
     #Moves the snake by going in reverse and setting the last element to the element in front of it
     def move(self, body):
         for i in range(len(body)-1, 0, -1):
-            body[i].snaketile.posx = body[i-1].snaketile.posx
-            body[i].snaketile.posy = body[i-1].snaketile.posy
+            body[i].tile.posx = body[i-1].tile.posx
+            body[i].tile.posy = body[i-1].tile.posy
 
         if self.direction == 1:
-            body[0].snaketile.nextTileUp()
+            body[0].tile.nextTileUp()
         if self.direction == 2:
-            body[0].snaketile.nextTileDown()
+            body[0].tile.nextTileDown()
         if self.direction == 3:
-            body[0].snaketile.nextTileRight()
+            body[0].tile.nextTileRight()
         if self.direction == 4:
-            body[0].snaketile.nextTileLeft() 
+            body[0].tile.nextTileLeft() 
             
 
 #Sets up food class
 class Food:
     def __init__(self):
-        self.foodtile = Tile(100, 100)
+        self.tile = Tile(100, 100)
 
     #Generates food at a random point 
     def generateFood(self):
-        self.foodtile.posx = (random.randint(0, 19)) * 10
-        self.foodtile.posy = (random.randint(0, 19)) * 10
+        self.tile.posx = (random.randint(0, 19)) * 10
+        self.tile.posy = (random.randint(0, 19)) * 10
         
 
 #Tile class to handle points.
@@ -47,7 +47,12 @@ class Tile:
                 self.fScore = 0
                 self.gScore = 0
                 self.cameFrom = None
+                self.xweight = 0
+                self.yweight = 0
+                self.weight = 0
 
+                self.comment = " "
+                
         def nextTileRight(self):
                 self.posx = self.posx + 10
 

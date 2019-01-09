@@ -35,7 +35,7 @@ def gameplayState(window, clock):
 
         aStar = A_star()
         
-        tmppath = aStar.run(body, food.foodtile)
+        tmppath = aStar.run(body, food.tile)
         if tmppath is not None:
                 path = tmppath
                 path.pop()
@@ -51,7 +51,7 @@ def gameplayState(window, clock):
 
                 #Handles A* path
                 if len(path) == 0:
-                        tmppath = aStar.run(body, food.foodtile)
+                        tmppath = aStar.run(body, food.tile)
 
                         if tmppath is not None:
                                 path = tmppath
@@ -60,13 +60,13 @@ def gameplayState(window, clock):
                 if tmppath is not None:
                         lastelement = path.pop()
 ##                        print("lastelement: "+str(lastelement.posx) + ", " + str(lastelement.posy))
-                        if lastelement.posx > head.snaketile.posx:
+                        if lastelement.posx > head.tile.posx:
                                 head.direction = 3
-                        elif lastelement.posx < head.snaketile.posx:
+                        elif lastelement.posx < head.tile.posx:
                                 head.direction = 4
-                        elif lastelement.posy > head.snaketile.posy:
+                        elif lastelement.posy > head.tile.posy:
                                 head.direction = 2
-                        elif lastelement.posy < head.snaketile.posy:
+                        elif lastelement.posy < head.tile.posy:
                                 head.direction = 1
                 
                 #Handles key movement. Manual movement messes with the algorithm, so i commented it out.
@@ -84,9 +84,9 @@ def gameplayState(window, clock):
                 head.move(body)
 
                 #If snake gets to the food, then it adds to the end of snake body.
-                if head.snaketile.posx == food.foodtile.posx and head.snaketile.posy == food.foodtile.posy:
-                        sx = body[(len(body)-1)].snaketile.posx
-                        sy = body[(len(body)-1)].snaketile.posy
+                if head.tile.posx == food.tile.posx and head.tile.posy == food.tile.posy:
+                        sx = body[(len(body)-1)].tile.posx
+                        sy = body[(len(body)-1)].tile.posy
                         if head.direction == 1:
                                 body.append(Snake(sx , (sy+10)))
                         if head.direction == 2:
@@ -98,7 +98,7 @@ def gameplayState(window, clock):
                         food.generateFood()
 
                 #Sets up the game rules. Cannot go outside the window and can't collide with itself
-                if head.snaketile.posx < 0 or head.snaketile.posx >= 200 or head.snaketile.posy < 0 or head.snaketile.posy >= 200:
+                if head.tile.posx < 0 or head.tile.posx >= 200 or head.tile.posy < 0 or head.tile.posy >= 200:
                         pygame.time.wait(500)
                         return True
                         
@@ -108,9 +108,9 @@ def gameplayState(window, clock):
 
                 #Draws and updates screen     
                 for x in body:
-                        pygame.draw.rect(window, (80,80,80), (x.snaketile.posx, x.snaketile.posy, x.width, x.height))
+                        pygame.draw.rect(window, (80,80,80), (x.tile.posx, x.tile.posy, x.width, x.height))
 
-                pygame.draw.rect(window, (248, 131, 121), (food.foodtile.posx, food.foodtile.posy, 10, 10))
+                pygame.draw.rect(window, (248, 131, 121), (food.tile.posx, food.tile.posy, 10, 10))
                 pygame.display.update()
 
                 window.fill((255,255,255))
@@ -122,7 +122,6 @@ def endgameState(window, clock):
 
         #Sets up the font used in Game over Screen
         myfont = pygame.font.SysFont('Comic Sans MS', 30)
-
 
         while True:
 
@@ -143,13 +142,14 @@ def endgameState(window, clock):
 
 #Helper method for collision detection
 def hasCollided(body):
-        x = body[0].snaketile.posx
-        y = body[0].snaketile.posy
+        
+        x = body[0].tile.posx
+        y = body[0].tile.posy
 
         #Goes through the length of the snake to see if the head position matches the body position.
         #Not entirely a great way to do this. I want to reorginze this in the future.
         for i in range(1, len(body)-1):
-                if body[i].snaketile.posx == x and body[i].snaketile.posy == y:
+                if body[i].tile.posx == x and body[i].tile.posy == y:
                         return True
         
         return False
