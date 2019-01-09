@@ -1,5 +1,5 @@
 # AStarSnake
-If you read the previous readme file you'll see what a lot of this is about.
+If you read the readme file in the master brach you'll see what a lot of this is about.
 
 **NOTE: the drawing part of A star test isn't working. It throws an error because the magnitudes are
 high when calculating the gradient. It's really a trial and error with figuring out the factor to make 
