@@ -7,7 +7,7 @@ World.py file. I have to be honest though, this isn't the most effecient way to 
 I'll probably push a lot of things in the future to fix the big-O. 
 
 The gradient branch is where a lot of my test code in making a gradient calculation is going. 
-If you check out the uploads folder, you can see my thought process and notes on everything. 
+If you check out the notes folder, you can see my thought process and notes on everything. 
 I'm not really sure if this is a good way of doing it and I'm definitly second guessing myself on 
 many decisions, but so far it's working out in my favor. Also, using a gradient to calculate "closeness"
 of the snake in one region as opposed to another isn't a method I've learned how to do or even thought about
