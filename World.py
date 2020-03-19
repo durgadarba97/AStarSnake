@@ -2,6 +2,46 @@ import pygame
 from Snake import *
 from A_star import *
 
+class GUI:
+        def __init__(self):
+                self.game = pygame.init()
+                self.window = self.createWindow(self.game)
+                self.clock = self.createClock(self.game)
+
+        def createWindow(self, game):
+                window = pygame.display.set_mode((200, 200))
+                game.display.set_caption("Snake")  
+                return window
+        
+        def createClock(self, game):
+              clock = game.time.Clock()  
+              return clock
+
+        def tick(self):
+                self.clock.tick(10)
+
+        def update(self, snake, food):
+
+                body = snake.body
+
+                for x in body:
+                        pygame.draw.rect(self.window, (80,80,80), (x.tile.posx, x.tile.posy, x.width, x.height))
+
+                pygame.draw.rect(self.window, (248, 131, 121), (food.tile.posx, food.tile.posy, 10, 10))
+                pygame.display.update()
+
+                self.window.fill((255,255,255))
+                
+                self.tick()
+
+        def handleQuit(self):
+                for event in self.game.event.get():
+                        if event.type == self.game.QUIT:
+                                self.exitGame()
+        
+        def exitGame(self):
+                self.game.quit()
+
 def main():
 
         #Sets up the window and initializes everything
@@ -95,6 +135,7 @@ def gameplayState(window, clock):
                                 body.append(Snake((sx-10) , sy))
                         if head.direction == 4:
                                 body.append(Snake((sx+10) , sy))
+                                
                         food.generateFood()
 
                 #Sets up the game rules. Cannot go outside the window and can't collide with itself

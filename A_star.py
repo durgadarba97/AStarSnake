@@ -75,11 +75,11 @@ class A_star:
         neighbors = []
         if current.posx > 0:
             neighbors.append(Tile(current.posx - 10, current.posy))
-        if current.posx <= 190:
+        if current.posx <= 180:
             neighbors.append(Tile(current.posx + 10, current.posy))
         if current.posy > 0:
             neighbors.append(Tile(current.posx, current.posy - 10))
-        if current.posy <= 190:
+        if current.posy <= 180:
             neighbors.append(Tile(current.posx, current.posy + 10))
 
         return neighbors
@@ -234,7 +234,7 @@ def testAStar():
                     print(str(j.weight))
 
                     if j.weight != 0 or j.weight != 1:
-                        pygame.draw.rect(window, (abs(255 * j.weight) , 0, 255), (x, y, 10, 10))
+                        pygame.draw.rect(window, (abs(255 - (255 * (j.weight))) , 0, 255), (x, y, 10, 10))
 
                     textsurface = myfont.render(str(j.comment), False, (0, 0, 0))
                     window.blit(textsurface,(x,y))                    
