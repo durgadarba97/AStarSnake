@@ -20,14 +20,14 @@ past year so here's how I'm rewriting this.
 Firstly, I want to make this much more object oriented than I orginally designed it. I'm doing this by
 implementing it like this:
                                                __________
-                                              |          |
-                                              |    AI    |
+                                              |          |</br >
+                                              |    AI    |</br >
                                               |__________|</br >
-                                              |          |
-                                              |Game Logic|
+                                              |          |</br >
+                                              |Game Logic|</br >
                                               |__________|</br >
-                                              |          |
-                                              |   GUI    |
+                                              |          |</br >
+                                              |   GUI    |</br >
                                               |__________|</br >
                                               
 Essentially, game logic abstracts the gui and lets me not have to worry about pixels or working with pygame when 
