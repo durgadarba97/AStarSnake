@@ -4,25 +4,23 @@ from A_star import *
 
 class GUI:
         def __init__(self):
-                self.game = pygame.init()
-                self.window = self.createWindow(self.game)
-                self.clock = self.createClock(self.game)
+                pygame.init()
+                self.window = self.createWindow()
+                self.clock = self.createClock()
 
-        def createWindow(self, game):
+        def createWindow(self):
                 window = pygame.display.set_mode((200, 200))
-                game.display.set_caption("Snake")  
+                pygame.display.set_caption("Snake")  
                 return window
         
-        def createClock(self, game):
-              clock = game.time.Clock()  
+        def createClock(self):
+              clock = pygame.time.Clock()  
               return clock
 
         def tick(self):
                 self.clock.tick(10)
 
-        def update(self, snake, food):
-
-                body = snake.body
+        def update(self, body, food):
 
                 for x in body:
                         pygame.draw.rect(self.window, (80,80,80), (x.tile.posx, x.tile.posy, x.width, x.height))
@@ -35,14 +33,15 @@ class GUI:
                 self.tick()
 
         def handleQuit(self):
-                for event in self.game.event.get():
-                        if event.type == self.game.QUIT:
-                                self.exitGame()
+                for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                                return False
+                return True
         
         def exitGame(self):
-                self.game.quit()
+                pygame.quit()
 
-def main():
+def notmain():
 
         #Sets up the window and initializes everything
         pygame.init()
@@ -197,5 +196,5 @@ def hasCollided(body):
         
 
 if __name__== "__main__":
-        main()
+        notmain()
 

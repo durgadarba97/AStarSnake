@@ -1,6 +1,7 @@
 import random
 
 #Sets up the snake class
+# TODO Snake is not just the head. Include body list in class.
 class Snake:
     def __init__(self, x, y):
         self.width = 10
@@ -22,6 +23,7 @@ class Snake:
             body[0].tile.nextTileRight()
         if self.direction == 4:
             body[0].tile.nextTileLeft() 
+    
             
 
 #Sets up food class
@@ -30,9 +32,23 @@ class Food:
         self.tile = Tile(100, 100)
 
     #Generates food at a random point 
-    def generateFood(self):
-        self.tile.posx = (random.randint(0, 19)) * 10
-        self.tile.posy = (random.randint(0, 19)) * 10
+    def generateFood(self, body):
+        f = self.genfoodHelper(body)
+        self.tile.posx = f[0]
+        self.tile.posy = f[1]
+
+    def genfoodHelper(self, body):
+        x = (random.randint(0, 19)) * 10
+        y = (random.randint(0, 19)) * 10
+        recur = (x, y)
+
+        print("FOOD position: " + str(x) + ", " + str(y))
+        for i in body:
+            if i.tile.posx == x  and i.tile.posy == y:
+                recur = self.genfoodHelper(body)
+        
+        return recur
+
         
 
 #Tile class to handle points.
@@ -40,6 +56,8 @@ class Food:
 #In the future, I want to set up a grid layout that has tiles.
 #This is so that main gameloop doesn't need to handle pixels but can just focus on the logic
 #and let the backend supporting classes handle that. Still works though!
+
+# TODO make posx and posy a tuple.
 class Tile:
         def __init__(self, x, y):
                 self.posx = x
