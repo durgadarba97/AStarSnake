@@ -22,13 +22,13 @@ implementing it like this:
                                                __________
                                               |          |
                                               |    AI    |
-                                              |__________|__
+                                              |__________|</br >
                                               |          |
                                               |Game Logic|
-                                              |__________|__
+                                              |__________|</br >
                                               |          |
                                               |   GUI    |
-                                              |__________|__
+                                              |__________|</br >
                                               
 Essentially, game logic abstracts the gui and lets me not have to worry about pixels or working with pygame when 
 coding the logic. The AI then implements the game logic and acts as if a regular playing the game. I've found this
