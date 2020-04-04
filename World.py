@@ -23,7 +23,7 @@ class GUI:
         def update(self, body, food):
 
                 for x in body:
-                        pygame.draw.rect(self.window, (80,80,80), (x.tile.posx, x.tile.posy, x.width, x.height))
+                        pygame.draw.rect(self.window, (80,80,80), (x.posx, x.posy, x.width, x.height))
 
                 pygame.draw.rect(self.window, (248, 131, 121), (food.tile.posx, food.tile.posy, 10, 10))
                 pygame.display.update()

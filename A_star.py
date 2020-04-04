@@ -34,11 +34,6 @@ class A_star:
                 while current is not None:
                     path.append(current)
                     current = current.cameFrom
-                 
-                print(len(path))
-                if len(path) == 0:
-                    spot = self.genNewSpot(wall)
-                    path = self.run(spot, goal)
 
 
                 return path
