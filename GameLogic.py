@@ -15,6 +15,8 @@ def main(guiinit):
     body.append(Snake(20,50))
     food = Food()
 
+    everything = Snake(50,50)
+
 
     aStar = A_star()
     
@@ -65,6 +67,9 @@ def main(guiinit):
                         
                 head.move(body)
 
+                for i in everything.body:
+                        print(str(i.posx) + ", " + str(i.posy))
+
                 #If snake gets to the food, then it adds to the end of snake body.
                 if head.tile.posx == food.tile.posx and head.tile.posy == food.tile.posy:
                         sx = body[(len(body)-1)].tile.posx
@@ -77,6 +82,8 @@ def main(guiinit):
                                 body.append(Snake((sx-10) , sy))
                         if head.direction == 4:
                                 body.append(Snake((sx+10) , sy))
+                        
+                        everything.append()
    
                         food.generateFood(body)
 
@@ -88,8 +95,9 @@ def main(guiinit):
                 if hasCollided(body):
                         pygame.time.wait(500)
                         break
-
-        gui.update(body, food)
+        
+        if guiinit:
+                gui.update(body, food)
 
     
     if guiinit:

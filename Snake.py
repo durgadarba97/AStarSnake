@@ -7,7 +7,15 @@ class Snake:
         self.width = 10
         self.height = 10
         self.tile = Tile(x,y)
+        self.body = self.createBody()
         self.direction = 2
+    
+    def createBody(self):
+        body = [self.tile]
+        body.append(Tile(self.tile.posx - 10, self.tile.posy))
+        body.append(Tile(self.tile.posx - 20, self.tile.posy))
+        body.append(Tile(self.tile.posx - 30, self.tile.posy))
+        return body
 
     #Moves the snake by going in reverse and setting the last element to the element in front of it
     def move(self, body):
@@ -23,6 +31,20 @@ class Snake:
             body[0].tile.nextTileRight()
         if self.direction == 4:
             body[0].tile.nextTileLeft() 
+    
+    #Don't know if this is a huge issue, but the snake can be appended off screen.
+    def append(self):
+        sx = self.body[(len(self.body)-1)].posx
+        sy = self.body[(len(self.body)-1)].posy
+
+        if self.direction == 1:
+                self.body.append(Tile(sx , (sy+10)))
+        if self.direction == 2:
+                self.body.append(Tile(sx , (sy-10)))
+        if self.direction == 3:
+                self.body.append(Tile((sx-10) , sy))
+        if self.direction == 4:
+                self.body.append(Tile((sx+10) , sy))
     
             
 
