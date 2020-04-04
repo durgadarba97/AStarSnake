@@ -6,35 +6,21 @@ class Snake:
     def __init__(self, x, y):
         self.width = 10
         self.height = 10
-        self.tile = Tile(x,y)
+        self.head = Tile(x,y)
 
         self.body = self.createBody()
 
         self.direction = 2
     
     def createBody(self):
-        b = [self.tile]
-        b.append(Tile(self.tile.posx - 10, self.tile.posy))
-        b.append(Tile(self.tile.posx - 20, self.tile.posy))
-        b.append(Tile(self.tile.posx - 30, self.tile.posy))
+        b = [self.head]
+        b.append(Tile(self.head.posx - 10, self.head.posy))
+        b.append(Tile(self.head.posx - 20, self.head.posy))
+        b.append(Tile(self.head.posx - 30, self.head.posy))
         return b
 
     #Moves the snake by going in reverse and setting the last element to the element in front of it
-    def move(self, body):
-        for i in range(len(body)-1, 0, -1):
-            body[i].tile.posx = body[i-1].tile.posx
-            body[i].tile.posy = body[i-1].tile.posy
-
-        if self.direction == 1:
-            body[0].tile.nextTileUp()
-        if self.direction == 2:
-            body[0].tile.nextTileDown()
-        if self.direction == 3:
-            body[0].tile.nextTileRight()
-        if self.direction == 4:
-            body[0].tile.nextTileLeft()
-
-    def moveSnake(self):
+    def move(self):
         for i in range(len(self.body)-1, 0, -1):
             self.body[i].posx = self.body[i-1].posx
             self.body[i].posy = self.body[i-1].posy
@@ -68,6 +54,8 @@ class Snake:
 class Food:
     def __init__(self):
         self.tile = Tile(100, 100)
+        self.x = self.tile.posx
+        self.y = self.tile.posy
 
     #Generates food at a random point 
     def generateFood(self, body):
@@ -82,7 +70,7 @@ class Food:
 
         print("FOOD position: " + str(x) + ", " + str(y))
         for i in body:
-            if i.tile.posx == x  and i.tile.posy == y:
+            if i.posx == x  and i.posy == y:
                 recur = self.genfoodHelper(body)
         
         return recur
@@ -103,9 +91,7 @@ class Tile:
                 self.fScore = 0
                 self.gScore = 0
                 self.cameFrom = None
-                self.xweight = 0
-                self.yweight = 0
-                self.weight = 0
+
 
                 self.comment = " "
 

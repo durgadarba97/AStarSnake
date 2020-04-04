@@ -8,19 +8,13 @@ def main(guiinit):
     if guiinit:
         gui = GUI()
 
-    head = Snake(50,50)
-    body = [head]
-    body.append(Snake(40,50))
-    body.append(Snake(30,50))
-    body.append(Snake(20,50))
     food = Food()
-
-    everything = Snake(50,50)
+    snake = Snake(50,50)
 
 
     aStar = A_star()
 
-    tmppath = aStar.run(body, food.tile)
+    tmppath = aStar.run(snake.body, food.tile)
 
     if tmppath is not None:
         path = tmppath
@@ -31,7 +25,7 @@ def main(guiinit):
             break
 
         if len(path) == 0:
-                tmppath = aStar.run(everything.body, food.tile)
+                tmppath = aStar.run(snake.body, food.tile)
 
                 if tmppath is not None:
                         path = tmppath
@@ -39,24 +33,15 @@ def main(guiinit):
 
         if tmppath is not None:
                 lastelement = path.pop()
-##                        print("lastelement: "+str(lastelement.posx) + ", " + str(lastelement.posy))
-                if lastelement.posx > head.tile.posx:
-                        head.direction = 3
-                elif lastelement.posx < head.tile.posx:
-                        head.direction = 4
-                elif lastelement.posy > head.tile.posy:
-                        head.direction = 2
-                elif lastelement.posy < head.tile.posy:
-                        head.direction = 1
 
-                if lastelement.posx > everything.body[0].posx:
-                        everything.direction = 3
-                elif lastelement.posx < everything.body[0].posx:
-                        everything.direction = 4
-                elif lastelement.posy > everything.body[0].posy:
-                        everything.direction = 2
-                elif lastelement.posy < everything.body[0].posy:
-                        everything.direction = 1
+                if lastelement.posx > snake.head.posx:
+                        snake.direction = 3
+                elif lastelement.posx < snake.head.posx:
+                        snake.direction = 4
+                elif lastelement.posy > snake.head.posy:
+                        snake.direction = 2
+                elif lastelement.posy < snake.head.posy:
+                        snake.direction = 1
 
                 # for i in path:
                 #         print(str(i.posx) + ", " + str(i.posy))
@@ -65,56 +50,57 @@ def main(guiinit):
                 #Handles key movement. Manual movement messes with the algorithm, so i commented it out.
                 # keys = pygame.key.get_pressed()
 
-                # if keys[pygame.K_UP] and everything.direction != 2:
+                # if keys[pygame.K_UP] and snake.direction != 2:
                 #         head.direction = 1
-                # elif keys[pygame.K_DOWN] and everything.direction != 1:
+                # elif keys[pygame.K_DOWN] and snake.direction != 1:
                 #         head.direction = 2
-                # elif keys[pygame.K_RIGHT] and everything.direction != 4:
+                # elif keys[pygame.K_RIGHT] and snake.direction != 4:
                 #         head.direction = 3
-                # elif keys[pygame.K_LEFT] and everything.direction != 3:
+                # elif keys[pygame.K_LEFT] and snake.direction != 3:
                 #         head.direction = 4
                         
                 # head.move(body)
-                everything.moveSnake()
 
-                for i in everything.body:
+                snake.move()
+
+                for i in snake.body:
                         print(str(i.posx) + ", " + str(i.posy))
 
                 #If snake gets to the food, then it adds to the end of snake body.
-                if everything.body[0].posx == food.tile.posx and everything.body[0].posy == food.tile.posy:
-                        # sx = body[(len(body)-1)].tile.posx
-                        # sy = body[(len(body)-1)].tile.posy
-                        # if head.direction == 1:
-                        #         body.append(Snake(sx , (sy+10)))
-                        # if head.direction == 2:
-                        #         body.append(Snake(sx , (sy-10)))
-                        # if head.direction == 3:
-                        #         body.append(Snake((sx-10) , sy))
-                        # if head.direction == 4:
-                        #         body.append(Snake((sx+10) , sy))
-                        
-                        everything.append()
-   
-                        food.generateFood(body)
+                if snake.head.posx == food.tile.posx and snake.head.posy == food.tile.posy:                    
+                        snake.append()
+                        food.generateFood(snake.body)
 
                 #Sets up the game rules. Cannot go outside the window and can't collide with itself
-                if everything.body[0].posx < 0 or everything.body[0].posx >= 200 or everything.body[0].posy < 0 or everything.body[0].posy >= 200:
+                if snake.head.posx < 0 or snake.head.posx >= 200 or snake.head.posy < 0 or snake.head.posy >= 200:
                         pygame.time.wait(500)
                         break
                         
-                if hasCollided(body):
+                if hasCollided(snake.body):
                         pygame.time.wait(500)
                         break
         
         if guiinit:
-                gui.update(everything.body, food)
+                gui.update(snake.body, food)
 
     
     if guiinit:
         gui.exitGame()
 
         
+#Helper method for collision detection
+def hasCollided(body):
 
+        x = body[0].posx
+        y = body[0].posy
+
+        #Goes through the length of the snake to see if the head position matches the body position.
+        #Not entirely a great way to do this. I want to reorginze this in the future.
+        for i in range(1, len(body)-1):
+                if body[i].posx == x and body[i].posy == y:
+                        return True
+        
+        return False
 
         
 

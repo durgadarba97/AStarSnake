@@ -10,7 +10,9 @@ class A_star:
 
     def run(self, wall, goal):
 
-        start = wall[0].tile
+        start = wall[0]
+        print(type(start))
+    
         self.closedSet = []
         self.openSet = [start]
         path = []
@@ -95,7 +97,7 @@ class A_star:
 
     def inBody(self, s, t):
         for i in s:
-            if i.tile.tileEquals(t):
+            if i.tileEquals(t):
                 return True      
         return False
 
