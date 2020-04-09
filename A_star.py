@@ -36,8 +36,7 @@ class A_star:
                 while current is not None:
                     path.append(current)
                     current = current.cameFrom
-
-
+                    
                 return path
             
             neighbors = self.giveNeighbors(current)
@@ -46,7 +45,7 @@ class A_star:
             
             for i in neighbors:
                 #if neighbor is already checked, then ignore it. Also, cannot collide with itself.
-                if not self.contains(self.closedSet, i) and not self.inBody(wall, i):
+                if not self.contains(self.closedSet, i) and not self.contains(wall, i):
                     #Distance between start adn neighbor. tenative gscore
                     tempGScore = current.gScore + 1
 
@@ -67,6 +66,11 @@ class A_star:
             # print("Closed")
             # for i in self.closedSet:
             #     print(str(i.posx) + ", " + str(i.posy))
+
+        # TODO recursively generate a new free tile for the snake to go to. 
+        newgoal = self.genNewSpot(wall)
+        path = self.run(wall, newgoal)
+        return path
 
 
     #Calculates the estimated distance from a given tile to end
@@ -95,23 +99,16 @@ class A_star:
                 return True          
         return False
 
-    def inBody(self, s, t):
-        for i in s:
-            if i.tileEquals(t):
-                return True      
-        return False
-
-
+# Recursivles gets an open tile.
     def genNewSpot(self, body):
         x = (random.randint(0, 19)) * 10
         y = (random.randint(0, 19)) * 10
-        recur = (x, y)
+        recur = Tile(x, y)
 
-        print("FOOD position: " + str(x) + ", " + str(y))
+        print("NEW SPOT position: " + str(x) + ", " + str(y))
         for i in body:
-            if i.tile.posx == x  and i.tile.posy == y:
+            if i.x() == x  and i.y() == y:
                 recur = self.genNewSpot(body)
-        
         return recur
 
 

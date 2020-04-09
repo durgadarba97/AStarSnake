@@ -11,7 +11,6 @@ def main(guiinit):
     food = Food()
     snake = Snake(50,50)
 
-
     aStar = A_star()
 
     tmppath = aStar.run(snake.body, food.tile)
@@ -34,17 +33,14 @@ def main(guiinit):
         if tmppath is not None:
                 lastelement = path.pop()
 
-                if lastelement.posx > snake.head.posx:
+                if lastelement.x() > snake.headx():
                         snake.direction = 3
-                elif lastelement.posx < snake.head.posx:
+                elif lastelement.x() < snake.headx():
                         snake.direction = 4
-                elif lastelement.posy > snake.head.posy:
+                elif lastelement.y() > snake.heady():
                         snake.direction = 2
-                elif lastelement.posy < snake.head.posy:
+                elif lastelement.y() < snake.heady():
                         snake.direction = 1
-
-                # for i in path:
-                #         print(str(i.posx) + ", " + str(i.posy))
 
                 
                 #Handles key movement. Manual movement messes with the algorithm, so i commented it out.
@@ -67,21 +63,21 @@ def main(guiinit):
                         print(str(i.posx) + ", " + str(i.posy))
 
                 #If snake gets to the food, then it adds to the end of snake body.
-                if snake.head.posx == food.tile.posx and snake.head.posy == food.tile.posy:                    
+                if snake.headx() == food.x() and snake.heady() == food.y():                    
                         snake.append()
                         food.generateFood(snake.body)
 
                 #Sets up the game rules. Cannot go outside the window and can't collide with itself
-                if snake.head.posx < 0 or snake.head.posx >= 200 or snake.head.posy < 0 or snake.head.posy >= 200:
+                if snake.headx() < 0 or snake.headx() >= 200 or snake.heady() < 0 or snake.heady() >= 200:
                         pygame.time.wait(500)
                         break
                         
-                if hasCollided(snake.body):
+                if hasCollided(snake):
                         pygame.time.wait(500)
                         break
         
         if guiinit:
-                gui.update(snake.body, food)
+                gui.update(snake, food)
 
     
     if guiinit:
@@ -89,15 +85,16 @@ def main(guiinit):
 
         
 #Helper method for collision detection
-def hasCollided(body):
+def hasCollided(snake):
 
-        x = body[0].posx
-        y = body[0].posy
+        x = snake.headx()
+        y = snake.heady()
+        body = snake.body
 
         #Goes through the length of the snake to see if the head position matches the body position.
         #Not entirely a great way to do this. I want to reorginze this in the future.
         for i in range(1, len(body)-1):
-                if body[i].posx == x and body[i].posy == y:
+                if body[i].x() == x and body[i].y() == y:
                         return True
         
         return False

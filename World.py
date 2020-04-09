@@ -20,12 +20,13 @@ class GUI:
         def tick(self):
                 self.clock.tick(10)
 
-        def update(self, body, food):
+        def update(self, snake, food):
+                body = snake.body
 
-                for x in body:
-                        pygame.draw.rect(self.window, (80,80,80), (x.posx, x.posy, x.width, x.height))
+                for tile in body:
+                        pygame.draw.rect(self.window, (80,80,80), (tile.x(), tile.y(), tile.width, tile.height))
 
-                pygame.draw.rect(self.window, (248, 131, 121), (food.tile.posx, food.tile.posy, 10, 10))
+                pygame.draw.rect(self.window, (248, 131, 121), (food.x(), food.y(), 10, 10))
                 pygame.display.update()
 
                 self.window.fill((255,255,255))
