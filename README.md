@@ -1,4 +1,7 @@
 # AStarSnake
+
+[![Run on Repl.it](https://repl.it/badge/github/durgadarba97/AStarSnake)](https://repl.it/github/durgadarba97/AStarSnake)
+
 This is my first exploration in trying to automate the game snake. 
 In the folders you find the Snake file that's used to house a lot of the main classes, 
 a world file that's used to house the gameplay and game states, and an A* file that's used to 
