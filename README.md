@@ -22,6 +22,14 @@ past year so here's how I'm rewriting this.
 
 Firstly, I want to make this much more object oriented than I orginally designed it. I'm doing this by
 implementing it like this:
+
+<dl>
+  <dt>Definition list</dt>
+  <dd>Is something people use sometimes.</dd>
+
+  <dt>Markdown in HTML</dt>
+  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
+</dl>
                                                __________
                                               |          |</br >
                                               |    AI    |</br >
