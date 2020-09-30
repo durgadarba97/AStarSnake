@@ -23,23 +23,14 @@ past year so here's how I'm rewriting this.
 Firstly, I want to make this much more object oriented than I orginally designed it. I'm doing this by
 implementing it like this:
 
-<dl>
-  <dt>Definition list</dt>
-  <dd>Is something people use sometimes.</dd>
 
-  <dt>Markdown in HTML</dt>
-  <dd>Does *not* work **very** well. Use HTML <em>tags</em>.</dd>
-</dl>
-                                               __________
-                                              |          |</br >
+                                               :--------:
                                               |    AI    |</br >
-                                              |__________|</br >
-                                              |          |</br >
+                                              |:--------:|</br >
                                               |Game Logic|</br >
-                                              |__________|</br >
-                                              |          |</br >
+                                              |:--------:|</br >
                                               |   GUI    |</br >
-                                              |__________|</br >
+                                              |:--------:|</br >
                                               
 Essentially, game logic abstracts the gui and lets me not have to worry about pixels or working with pygame when 
 coding the logic. The AI then implements the game logic and acts as if a regular playing the game. I've found this
