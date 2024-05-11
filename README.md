@@ -1,7 +1,7 @@
 # AStarSnake
 
 [![Run on Repl.it](https://repl.it/badge/github/durgadarba97/AStarSnake)](https://repl.it/github/durgadarba97/AStarSnake)
-[!thumbnail](https://github.com/durgadarba97/AStarSnake/assets/11541314/babc3188-e701-41cd-88fe-42253774e3fb)]
+[!thumbnail](https://github.com/durgadarba97/AStarSnake/assets/11541314/babc3188-e701-41cd-88fe-42253774e3fb)
 
 This is my first exploration in trying to automate the game snake. 
 In the folders you find the Snake file that's used to house a lot of the main classes, 
